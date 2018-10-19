@@ -1,0 +1,26 @@
+server:
+  port: 30003
+  debugPort: 30020
+  tomcat:
+    uri-encoding: UTF-8
+spring:
+  application:
+    name: excel
+  mvc:
+    date-format: yyyy-MM-dd HH:mm:ss
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  http:
+    encoding:
+      charset: utf-8
+    multipart:
+      enabled: true
+      max-file-size: 10MB
+      max-request-size: 10MB
+axon:
+  distributed:
+    enabled: false
+    spring-cloud:
+      fallback-url: /message-routing-information
+      fallback-to-http-get: true
