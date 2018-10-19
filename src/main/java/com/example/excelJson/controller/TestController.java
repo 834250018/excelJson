@@ -12,8 +12,8 @@ import java.util.Date;
  */
 @RestController
 public class TestController {
-    @RequestMapping("/rb")
-    public Boolean doSome() {
+    @RequestMapping("rb")
+    public Boolean doSome(@RequestBody Object body) {
         System.out.println("调用了什么什么,打印出什么" + new Date());
         return true;
     }
