@@ -18,6 +18,9 @@ public class TestController {
         System.out.println("测试上传会调用");
         System.out.println("测试上传会调用");
         System.out.println("20日的新测试");
+        System.out.println("123456dsfa");
+        System.out.println("123456");
+        System.out.println("dsgsdagd");
         return true;
     }
 }
