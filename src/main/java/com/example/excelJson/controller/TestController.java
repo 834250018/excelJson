@@ -17,6 +17,7 @@ public class TestController {
         System.out.println("调用了什么什么,打印出什么" + new Date());
         System.out.println("测试上传会调用");
         System.out.println("测试上传会调用");
+        System.out.println("20日的新测试");
         return true;
     }
 }
