@@ -2,29 +2,28 @@ package com.example.excelJson.controller;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import javax.annotation.processing.FilerException;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import javax.servlet.http.HttpServletResponse;
+import java.io.*;
+import java.net.URLEncoder;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.List;
 
 @SuppressWarnings({"deprecation", "resource"})
 public class PoiUtil {
-
-    // 格式化数字
-    //private static DecimalFormat nf = new DecimalFormat("0.00");
-    private static DecimalFormat nf = new DecimalFormat("0");
 
     // 默认单元格格式化日期字符串
     private static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     // 默认单元格内容为数字时格式
     private static DecimalFormat df = new DecimalFormat("0.00");
+
+    private final static String SHEET_1 = "sheet1";
 
     public static ArrayList<ArrayList<Object>> readExcel(File file) throws IOException {
         FileInputStream fis = new FileInputStream(file);
@@ -60,7 +59,7 @@ public class PoiUtil {
                 } else {
                     rowCount++;
                 }
-                if(isRowEmpty(row)) {
+                if (isRowEmpty(row)) {
                     continue;
                 }
                 for (int j = row.getFirstCellNum(); j <= row.getLastCellNum(); j++) {
@@ -120,5 +119,50 @@ public class PoiUtil {
             }
         }
         return true;
+    }
+
+    /**
+     * 把生成的excel写入Response
+     * @param res
+     * @param lists
+     * @throws IOException
+     */
+    public static void writeIntoResponse(HttpServletResponse res, List<List> lists) throws IOException {
+        OutputStream out = res.getOutputStream();
+        res.setHeader("content-Type", "application/vnd.ms-excel");
+        res.setHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode("报表.xlsx", "utf-8"));
+
+        //创建一个工作簿
+        Workbook wb = new XSSFWorkbook();
+
+        try {
+            //创建一个sheet
+            Sheet sheet = wb.createSheet(SHEET_1);
+            //创建第一行标题行
+            writeData(sheet, lists);
+
+            wb.write(out);
+        } finally {
+            wb.close();
+        }
+    }
+
+    /**
+     * 把数据写入excel,只是简单的demo,代码跟随业务改变而改变
+     * @param sheet
+     * @param lists
+     */
+    private static void writeData(Sheet sheet, List<List> lists) {
+        int i = 0, j = 0;
+        for (List list : lists) {
+            Row row = sheet.createRow(i);
+            j = 0;
+            for (Object o : list) {
+                Cell cell = row.createCell(j);
+                cell.setCellValue(o.toString());
+                j++;
+            }
+            i++;
+        }
     }
 }
