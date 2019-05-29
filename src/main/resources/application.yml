@@ -18,9 +18,22 @@ spring:
       enabled: true
       max-file-size: 10MB
       max-request-size: 10MB
+  data:
+    mongodb:
+      port:
 axon:
   distributed:
     enabled: false
     spring-cloud:
       fallback-url: /message-routing-information
       fallback-to-http-get: true
+#eureka:
+#  instance:
+#    hostname: 127.0.0.1
+#  client:
+#    healthcheck:
+#      enabled: true
+##    register-with-eureka: true
+##    fetch-registry: true
+#    service-url:
+#      defaultZone: http://localhost:30003/eureka/
