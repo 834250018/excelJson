@@ -1,5 +1,5 @@
 server:
-  port: 30003
+  port: 8080
   debugPort: 30020
   tomcat:
     uri-encoding: UTF-8
@@ -20,7 +20,9 @@ spring:
       max-request-size: 10MB
   data:
     mongodb:
-      port:
+      host: 127.0.0.1
+      port: 27017
+      database: test
 axon:
   distributed:
     enabled: false

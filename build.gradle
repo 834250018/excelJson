@@ -35,5 +35,11 @@ dependencies {
 
     compile group: 'org.apache.poi', name: 'poi', version: '4.0.0'
     compile group: 'org.apache.poi', name: 'poi-ooxml', version: '4.0.0'
+    compile group: 'io.springfox', name: 'springfox-swagger2', version: "${SPRINGFOX_VERSION}"
+    compile group: 'io.springfox', name: 'springfox-swagger-ui', version: "${SPRINGFOX_VERSION}"
+
+    compile 'org.projectlombok:lombok:1.18.2'
+    annotationProcessor 'org.projectlombok:lombok:1.18.2'
+    compile('org.springframework.boot:spring-boot-starter-data-mongodb')
 
 }

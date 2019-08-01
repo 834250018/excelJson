@@ -2,6 +2,7 @@ package com.example.excelJson.controller;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
@@ -80,7 +81,7 @@ public class PoiUtil {
                             if ("@".equals(cell.getCellStyle().getDataFormatString())) {
                                 value = df.format(cell.getNumericCellValue());
                             } else if ("General".equals(cell.getCellStyle().getDataFormatString())) {
-                                value = cell.getNumericCellValue();
+                                value = ((XSSFCell) cell).getRawValue();
                             } else {
                                 value = sdf.format(DateUtil.getJavaDate(cell.getNumericCellValue()));
                             }
